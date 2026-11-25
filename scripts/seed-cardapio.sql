@@ -33,68 +33,99 @@ BEGIN
     RAISE NOTICE 'Produtos existentes removidos';
 
     -- ============================================
-    -- 3. CRIAR/ATUALIZAR CATEGORIAS (5 categorias)
+    -- 3. CRIAR/ATUALIZAR CATEGORIAS (5 categorias) - UPSERT GARANTIDO
     -- ============================================
+    -- Usa INSERT ... ON CONFLICT (estabelecimento_id, nome) DO UPDATE
+    -- para garantir que a categoria exista SEMPRE com ativo=true e ID válido
 
     -- Categoria 1: Porções
-    SELECT id INTO v_cat_porcoes_id
-    FROM public.categorias
-    WHERE estabelecimento_id = v_estabelecimento_id AND nome = 'Porções';
+    INSERT INTO public.categorias (estabelecimento_id, nome, icone, cor, ordem, ativo)
+    VALUES (v_estabelecimento_id, 'Porções', '🍟', '#EF4444', 1, true)
+    ON CONFLICT (estabelecimento_id, nome) DO UPDATE SET
+        icone = EXCLUDED.icone,
+        cor = EXCLUDED.cor,
+        ordem = EXCLUDED.ordem,
+        ativo = true,
+        updated_at = timezone('utc'::text, now())
+    RETURNING id INTO v_cat_porcoes_id;
 
-    IF v_cat_porcoes_id IS NULL THEN
-        INSERT INTO public.categorias (estabelecimento_id, nome, icone, cor, ordem, ativo)
-        VALUES (v_estabelecimento_id, 'Porções', '🍟', '#EF4444', 1, true)
-        RETURNING id INTO v_cat_porcoes_id;
-    END IF;
     RAISE NOTICE 'Categoria Porções: %', v_cat_porcoes_id;
 
     -- Categoria 2: Bebidas (sem álcool)
-    SELECT id INTO v_cat_bebidas_id
-    FROM public.categorias
-    WHERE estabelecimento_id = v_estabelecimento_id AND nome = 'Bebidas';
+    INSERT INTO public.categorias (estabelecimento_id, nome, icone, cor, ordem, ativo)
+    VALUES (v_estabelecimento_id, 'Bebidas', '🥤', '#3B82F6', 2, true)
+    ON CONFLICT (estabelecimento_id, nome) DO UPDATE SET
+        icone = EXCLUDED.icone,
+        cor = EXCLUDED.cor,
+        ordem = EXCLUDED.ordem,
+        ativo = true,
+        updated_at = timezone('utc'::text, now())
+    RETURNING id INTO v_cat_bebidas_id;
 
-    IF v_cat_bebidas_id IS NULL THEN
-        INSERT INTO public.categorias (estabelecimento_id, nome, icone, cor, ordem, ativo)
-        VALUES (v_estabelecimento_id, 'Bebidas', '🥤', '#3B82F6', 2, true)
-        RETURNING id INTO v_cat_bebidas_id;
-    END IF;
     RAISE NOTICE 'Categoria Bebidas: %', v_cat_bebidas_id;
 
     -- Categoria 3: Lanches (hambúrgueres e sanduíches)
-    SELECT id INTO v_cat_lanches_id
-    FROM public.categorias
-    WHERE estabelecimento_id = v_estabelecimento_id AND nome = 'Lanches';
+    INSERT INTO public.categorias (estabelecimento_id, nome, icone, cor, ordem, ativo)
+    VALUES (v_estabelecimento_id, 'Lanches', '🍔', '#F97316', 3, true)
+    ON CONFLICT (estabelecimento_id, nome) DO UPDATE SET
+        icone = EXCLUDED.icone,
+        cor = EXCLUDED.cor,
+        ordem = EXCLUDED.ordem,
+        ativo = true,
+        updated_at = timezone('utc'::text, now())
+    RETURNING id INTO v_cat_lanches_id;
 
-    IF v_cat_lanches_id IS NULL THEN
-        INSERT INTO public.categorias (estabelecimento_id, nome, icone, cor, ordem, ativo)
-        VALUES (v_estabelecimento_id, 'Lanches', '🍔', '#F97316', 3, true)
-        RETURNING id INTO v_cat_lanches_id;
-    END IF;
     RAISE NOTICE 'Categoria Lanches: %', v_cat_lanches_id;
 
     -- Categoria 4: Drinks (com álcool)
-    SELECT id INTO v_cat_drinks_id
-    FROM public.categorias
-    WHERE estabelecimento_id = v_estabelecimento_id AND nome = 'Drinks';
+    INSERT INTO public.categorias (estabelecimento_id, nome, icone, cor, ordem, ativo)
+    VALUES (v_estabelecimento_id, 'Drinks', '🍹', '#EC4899', 4, true)
+    ON CONFLICT (estabelecimento_id, nome) DO UPDATE SET
+        icone = EXCLUDED.icone,
+        cor = EXCLUDED.cor,
+        ordem = EXCLUDED.ordem,
+        ativo = true,
+        updated_at = timezone('utc'::text, now())
+    RETURNING id INTO v_cat_drinks_id;
 
-    IF v_cat_drinks_id IS NULL THEN
-        INSERT INTO public.categorias (estabelecimento_id, nome, icone, cor, ordem, ativo)
-        VALUES (v_estabelecimento_id, 'Drinks', '🍹', '#EC4899', 4, true)
-        RETURNING id INTO v_cat_drinks_id;
-    END IF;
     RAISE NOTICE 'Categoria Drinks: %', v_cat_drinks_id;
 
     -- Categoria 5: Pasteis
-    SELECT id INTO v_cat_pasteis_id
-    FROM public.categorias
-    WHERE estabelecimento_id = v_estabelecimento_id AND nome = 'Pasteis';
+    INSERT INTO public.categorias (estabelecimento_id, nome, icone, cor, ordem, ativo)
+    VALUES (v_estabelecimento_id, 'Pasteis', '🥟', '#8B5CF6', 5, true)
+    ON CONFLICT (estabelecimento_id, nome) DO UPDATE SET
+        icone = EXCLUDED.icone,
+        cor = EXCLUDED.cor,
+        ordem = EXCLUDED.ordem,
+        ativo = true,
+        updated_at = timezone('utc'::text, now())
+    RETURNING id INTO v_cat_pasteis_id;
 
-    IF v_cat_pasteis_id IS NULL THEN
-        INSERT INTO public.categorias (estabelecimento_id, nome, icone, cor, ordem, ativo)
-        VALUES (v_estabelecimento_id, 'Pasteis', '🥟', '#8B5CF6', 5, true)
-        RETURNING id INTO v_cat_pasteis_id;
-    END IF;
     RAISE NOTICE 'Categoria Pasteis: %', v_cat_pasteis_id;
+
+    -- Garantia extra: se por algum motivo o RETURNING falhar, busca o ID
+    IF v_cat_porcoes_id IS NULL THEN
+        SELECT id INTO v_cat_porcoes_id FROM public.categorias WHERE estabelecimento_id = v_estabelecimento_id AND nome = 'Porções';
+    END IF;
+    IF v_cat_bebidas_id IS NULL THEN
+        SELECT id INTO v_cat_bebidas_id FROM public.categorias WHERE estabelecimento_id = v_estabelecimento_id AND nome = 'Bebidas';
+    END IF;
+    IF v_cat_lanches_id IS NULL THEN
+        SELECT id INTO v_cat_lanches_id FROM public.categorias WHERE estabelecimento_id = v_estabelecimento_id AND nome = 'Lanches';
+    END IF;
+    IF v_cat_drinks_id IS NULL THEN
+        SELECT id INTO v_cat_drinks_id FROM public.categorias WHERE estabelecimento_id = v_estabelecimento_id AND nome = 'Drinks';
+    END IF;
+    IF v_cat_pasteis_id IS NULL THEN
+        SELECT id INTO v_cat_pasteis_id FROM public.categorias WHERE estabelecimento_id = v_estabelecimento_id AND nome = 'Pasteis';
+    END IF;
+
+    -- Validação final: todas as categorias devem ter ID válido
+    IF v_cat_porcoes_id IS NULL OR v_cat_bebidas_id IS NULL OR v_cat_lanches_id IS NULL OR v_cat_drinks_id IS NULL OR v_cat_pasteis_id IS NULL THEN
+        RAISE EXCEPTION 'Falha ao obter IDs das categorias - verifique constraints unique (estabelecimento_id, nome)';
+    END IF;
+
+    RAISE NOTICE '✅ Todas as 5 categorias garantidas com IDs válidos e ativo=true';
 
     -- ============================================
     -- 4. INSERIR PRODUTOS - PORÇÕES
@@ -573,14 +604,14 @@ BEGIN
 
     RAISE NOTICE '✅ Seed concluído com sucesso!';
     RAISE NOTICE '   Estabelecimento: %', v_estabelecimento_id;
-    RAISE NOTICE '   Categorias criadas: 5';
-    RAISE NOTICE '   Produtos por categoria:';
-    RAISE NOTICE '   - Porções: 6 produtos';
-    RAISE NOTICE '   - Bebidas: 5 produtos';
-    RAISE NOTICE '   - Lanches: 9 produtos (6 hambúrgueres + 3 adicionais)';
-    RAISE NOTICE '   - Drinks: 7 produtos';
-    RAISE NOTICE '   - Pasteis: 8 produtos';
-    RAISE NOTICE '   Total: 35 produtos criados';
-    RAISE NOTICE '   Imagens: 10 imagens de menu + 11 imagens de galeria reutilizadas ciclicamente';
+    RAISE NOTICE '   Categorias garantidas (upsert): 5';
+    RAISE NOTICE '   - Porções: % (6 produtos)', v_cat_porcoes_id;
+    RAISE NOTICE '   - Bebidas: % (5 produtos)', v_cat_bebidas_id;
+    RAISE NOTICE '   - Lanches: % (9 produtos)', v_cat_lanches_id;
+    RAISE NOTICE '   - Drinks: % (7 produtos)', v_cat_drinks_id;
+    RAISE NOTICE '   - Pasteis: % (8 produtos)', v_cat_pasteis_id;
+    RAISE NOTICE '   Total: 35 produtos com categoria_id NÃO NULO';
+    RAISE NOTICE '   Todos com visivel_vitrine=true, ativo=true';
+    RAISE NOTICE '   Imagens: 10 menu + 11 galeria reutilizadas';
 
 END $$;
