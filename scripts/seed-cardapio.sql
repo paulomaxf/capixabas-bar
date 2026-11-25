@@ -25,12 +25,17 @@ BEGIN
     RAISE NOTICE 'Estabelecimento encontrado: %', v_estabelecimento_id;
 
     -- ============================================
-    -- 2. REMOVER PRODUTOS EXISTENTES
+    -- 2. REMOVER PRODUTOS E CATEGORIAS ANTIGAS (limpeza total)
     -- ============================================
     DELETE FROM public.produtos
     WHERE estabelecimento_id = v_estabelecimento_id;
 
-    RAISE NOTICE 'Produtos existentes removidos';
+    -- Remover categorias antigas que não estão na nova lista de 5
+    DELETE FROM public.categorias
+    WHERE estabelecimento_id = v_estabelecimento_id
+      AND nome NOT IN ('Porções', 'Bebidas', 'Lanches', 'Drinks', 'Pasteis');
+
+    RAISE NOTICE 'Produtos e categorias antigas removidos';
 
     -- ============================================
     -- 3. CRIAR/ATUALIZAR CATEGORIAS (5 categorias) - UPSERT GARANTIDO
