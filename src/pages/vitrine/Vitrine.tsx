@@ -545,12 +545,12 @@ export default function Vitrine() {
                     </span>
                   </div>
 
-                  {/* Artist name - bottom left - GUARANTEED MASSIVE SIZE WITH INLINE STYLES */}
+                  {/* Artist name - bottom left - DESTAQUE MAIOR, COLORIDO E NEGRITO */}
                   {eventoDestaque.artista && (
                     <div className="absolute bottom-24 left-4 right-4 md:bottom-28 lg:bottom-32 z-10">
                       <p
                         style={{
-                          fontSize: 'clamp(20px, 5vw, 28px)',
+                          fontSize: 'clamp(18px, 4.5vw, 26px)',
                           fontWeight: 800,
                           color: 'rgba(255,255,255,0.95)',
                           textShadow: '0 4px 24px rgba(0,0,0,0.9)',
@@ -565,10 +565,10 @@ export default function Vitrine() {
                       </p>
                       <h3
                         style={{
-                          fontSize: 'clamp(42px, 12vw, 84px)',
+                          fontSize: 'clamp(48px, 14vw, 96px)',
                           fontWeight: 900,
-                          color: 'white',
-                          textShadow: '0 6px 32px rgba(0,0,0,1), 0 2px 8px rgba(0,0,0,0.8)',
+                          color: '#fbbf24', /* amber-400 - dourado vibrante para destaque */
+                          textShadow: '0 6px 32px rgba(0,0,0,1), 0 2px 8px rgba(0,0,0,0.9), 0 0 20px rgba(251,191,36,0.5)',
                           letterSpacing: '-0.03em',
                           lineHeight: 1,
                           margin: 0
@@ -579,7 +579,7 @@ export default function Vitrine() {
                     </div>
                   )}
 
-                  {/* Date - bottom right - GUARANTEED MASSIVE SIZE WITH INLINE STYLES */}
+                  {/* Date - bottom right - TAMANHO AJUSTADO PARA MELHOR LEITURA */}
                   <div className="absolute bottom-4 right-4 md:bottom-6 lg:bottom-8 z-10">
                     <div
                       className="bg-black/85 backdrop-blur-md rounded-xl border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.6)]"
@@ -591,10 +591,10 @@ export default function Vitrine() {
                     >
                       <p
                         style={{
-                          fontSize: 'clamp(22px, 5.5vw, 32px)',
-                          fontWeight: 900,
-                          color: 'white',
-                          textShadow: '0 4px 20px rgba(0,0,0,0.9)',
+                          fontSize: 'clamp(18px, 4.5vw, 26px)',
+                          fontWeight: 800,
+                          color: '#fbbf24', /* amber-400 - mesma cor do artista para consistência */
+                          textShadow: '0 4px 20px rgba(0,0,0,0.9), 0 0 15px rgba(251,191,36,0.4)',
                           letterSpacing: '0.01em',
                           lineHeight: 1.2,
                           margin: 0
@@ -604,10 +604,10 @@ export default function Vitrine() {
                       </p>
                       <p
                         style={{
-                          fontSize: 'clamp(20px, 5vw, 28px)',
-                          fontWeight: 800,
-                          color: 'rgba(255,255,255,0.95)',
-                          textShadow: '0 4px 20px rgba(0,0,0,0.9)',
+                          fontSize: 'clamp(16px, 4vw, 22px)',
+                          fontWeight: 700,
+                          color: 'rgba(255,255,255,0.9)',
+                          textShadow: '0 3px 16px rgba(0,0,0,0.8)',
                           letterSpacing: '0.01em',
                           lineHeight: 1.2,
                           marginTop: '6px'
@@ -654,13 +654,14 @@ export default function Vitrine() {
                             display: 'inline-flex',
                             alignItems: 'center',
                             gap: '8px',
-                            padding: 'clamp(10px, 2.5vw, 14px) clamp(16px, 4vw, 24px)',
-                            background: '#f3f4f6',
-                            color: '#111827',
+                            padding: 'clamp(12px, 3vw, 16px) clamp(18px, 4.5vw, 28px)',
+                            background: '#fef3c7', /* amber-50 */
+                            color: '#92400e', /* amber-900 */
+                            border: '2px solid #fbbf24', /* amber-400 */
                             borderRadius: '9999px',
                             fontSize: 'clamp(16px, 4vw, 22px)',
-                            fontWeight: 800,
-                            boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
+                            fontWeight: 900,
+                            boxShadow: '0 4px 16px rgba(251,191,36,0.3)'
                           }}
                         >
                           <Clock className="h-5 w-5 md:h-6 md:w-6" style={{ flexShrink: 0 }} />
@@ -868,9 +869,11 @@ export default function Vitrine() {
               <h2 id="event-modal-title" className="text-xl md:text-2xl font-bold text-gray-900 mb-3">{selectedEvent.titulo}</h2>
 
               {selectedEvent.artista && (
-                <div className="mb-3 flex items-center gap-2 text-primary-600 font-medium">
-                  <Music className="h-4 w-4 md:h-5 md:w-5" />
-                  <span className="text-sm md:text-base">{selectedEvent.artista}</span>
+                <div className="mb-4 flex items-center gap-2">
+                  <Music className="h-5 w-5 md:h-6 md:w-6 text-amber-500" />
+                  <span className="text-lg md:text-xl lg:text-2xl font-bold text-amber-600" style={{ textShadow: '0 2px 8px rgba(251,191,36,0.3)' }}>
+                    {selectedEvent.artista}
+                  </span>
                 </div>
               )}
 
@@ -878,20 +881,20 @@ export default function Vitrine() {
                 <p className="text-gray-600 text-base leading-relaxed mb-4 md:mb-6">{selectedEvent.descricao}</p>
               )}
 
-              <div className="flex flex-wrap gap-3 mb-4 md:mb-6 text-xs md:text-sm text-gray-600">
-                <div className="flex items-center gap-2 bg-gray-50 px-3 py-2 rounded-xl">
-                  <Calendar className="h-3.5 w-3.5 md:h-4 md:w-4 text-gray-400" />
-                  <span>{format(new Date(selectedEvent.data_inicio), 'EEEE, dd/MM/yyyy', { locale: ptBR })}</span>
+              <div className="flex flex-wrap gap-3 mb-4 md:mb-6">
+                <div className="flex items-center gap-2 bg-amber-50 px-4 py-3 rounded-xl border border-amber-200">
+                  <Calendar className="h-5 w-5 md:h-6 md:w-6 text-amber-600" />
+                  <span className="text-base md:text-lg font-bold text-amber-700">{format(new Date(selectedEvent.data_inicio), 'EEEE, dd/MM/yyyy', { locale: ptBR })}</span>
                 </div>
                 {selectedEvent.data_fim && (
-                  <div className="flex items-center gap-2 bg-gray-50 px-3 py-2 rounded-xl">
-                    <Calendar className="h-3.5 w-3.5 md:h-4 md:w-4 text-gray-400" />
-                    <span>Até {format(new Date(selectedEvent.data_fim), 'dd/MM/yyyy', { locale: ptBR })}</span>
+                  <div className="flex items-center gap-2 bg-gray-50 px-4 py-3 rounded-xl">
+                    <Calendar className="h-5 w-5 md:h-6 md:w-6 text-gray-400" />
+                    <span className="text-base md:text-lg font-semibold text-gray-700">Até {format(new Date(selectedEvent.data_fim), 'dd/MM/yyyy', { locale: ptBR })}</span>
                   </div>
                 )}
-                <div className="flex items-center gap-2 bg-gray-50 px-3 py-2 rounded-xl">
-                  <Users className="h-3.5 w-3.5 md:h-4 md:w-4 text-gray-400" />
-                  <span>Música ao vivo</span>
+                <div className="flex items-center gap-2 bg-primary-50 px-4 py-3 rounded-xl border border-primary-200">
+                  <Users className="h-5 w-5 md:h-6 md:w-6 text-primary-600" />
+                  <span className="text-base md:text-lg font-semibold text-primary-700">Música ao vivo</span>
                 </div>
               </div>
 
