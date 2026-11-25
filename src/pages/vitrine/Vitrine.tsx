@@ -545,25 +545,74 @@ export default function Vitrine() {
                     </span>
                   </div>
 
-                  {/* Artist name - bottom left - HUGE, BOLD, HIGH CONTRAST */}
+                  {/* Artist name - bottom left - GUARANTEED MASSIVE SIZE WITH INLINE STYLES */}
                   {eventoDestaque.artista && (
                     <div className="absolute bottom-24 left-4 right-4 md:bottom-28 lg:bottom-32 z-10">
-                      <p className="text-white/90 text-sm md:text-base lg:text-lg font-semibold mb-2 flex items-center gap-2 drop-shadow-xl">
-                        <Music className="h-4 w-4 md:h-5 md:w-5" /> Atração:
+                      <p
+                        style={{
+                          fontSize: 'clamp(20px, 5vw, 28px)',
+                          fontWeight: 800,
+                          color: 'rgba(255,255,255,0.95)',
+                          textShadow: '0 4px 24px rgba(0,0,0,0.9)',
+                          letterSpacing: '-0.02em',
+                          marginBottom: '8px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '8px'
+                        }}
+                      >
+                        <Music className="h-5 w-5 md:h-6 md:w-6" style={{ flexShrink: 0 }} /> Atração:
                       </p>
-                      <h3 className="text-white text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-black drop-shadow-[0_4px_24px_rgba(0,0,0,0.9)] tracking-tight leading-none">
+                      <h3
+                        style={{
+                          fontSize: 'clamp(42px, 12vw, 84px)',
+                          fontWeight: 900,
+                          color: 'white',
+                          textShadow: '0 6px 32px rgba(0,0,0,1), 0 2px 8px rgba(0,0,0,0.8)',
+                          letterSpacing: '-0.03em',
+                          lineHeight: 1,
+                          margin: 0
+                        }}
+                      >
                         {eventoDestaque.artista}
                       </h3>
                     </div>
                   )}
 
-                  {/* Date - bottom right - HUGE, BOLD, HIGH CONTRAST */}
+                  {/* Date - bottom right - GUARANTEED MASSIVE SIZE WITH INLINE STYLES */}
                   <div className="absolute bottom-4 right-4 md:bottom-6 lg:bottom-8 z-10">
-                    <div className="bg-black/80 backdrop-blur-md px-6 py-4 md:px-8 md:py-5 rounded-xl text-white border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
-                      <p className="text-base md:text-lg lg:text-xl font-bold drop-shadow-lg tracking-wide">
+                    <div
+                      className="bg-black/85 backdrop-blur-md rounded-xl border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.6)]"
+                      style={{
+                        padding: 'clamp(16px, 4vw, 24px) clamp(20px, 5vw, 32px)',
+                        minWidth: 'clamp(180px, 45vw, 280px)',
+                        textAlign: 'right'
+                      }}
+                    >
+                      <p
+                        style={{
+                          fontSize: 'clamp(22px, 5.5vw, 32px)',
+                          fontWeight: 900,
+                          color: 'white',
+                          textShadow: '0 4px 20px rgba(0,0,0,0.9)',
+                          letterSpacing: '0.01em',
+                          lineHeight: 1.2,
+                          margin: 0
+                        }}
+                      >
                         {format(new Date(eventoDestaque.data_inicio), 'EEEE, dd/MM', { locale: ptBR })}
                       </p>
-                      <p className="text-base md:text-lg lg:text-xl font-semibold opacity-95 drop-shadow-lg mt-1 tracking-wide">
+                      <p
+                        style={{
+                          fontSize: 'clamp(20px, 5vw, 28px)',
+                          fontWeight: 800,
+                          color: 'rgba(255,255,255,0.95)',
+                          textShadow: '0 4px 20px rgba(0,0,0,0.9)',
+                          letterSpacing: '0.01em',
+                          lineHeight: 1.2,
+                          marginTop: '6px'
+                        }}
+                      >
                         A partir das 20h
                       </p>
                     </div>
@@ -573,27 +622,83 @@ export default function Vitrine() {
                 <div className="p-4 md:p-6 lg:p-8">
                   <div className="space-y-5 md:grid md:grid-cols-2 gap-5 lg:gap-8 items-center">
                     <div>
-                      <h2 className="text-2xl md:text-3xl lg:text-4xl font-black text-gray-900 mb-4 flex items-center gap-3">
-                        <Music className="h-6 w-6 md:h-7 md:w-7 text-primary-600 shrink-0" />
+                      <h2
+                        style={{
+                          fontSize: 'clamp(28px, 7vw, 48px)',
+                          fontWeight: 900,
+                          color: '#111827',
+                          letterSpacing: '-0.02em',
+                          lineHeight: 1.1,
+                          marginBottom: '16px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '12px'
+                        }}
+                      >
+                        <Music className="h-7 w-7 md:h-8 md:w-8 text-primary-600 shrink-0" style={{ flexShrink: 0 }} />
                         Evento em Destaque
                       </h2>
                       {eventoDestaque.descricao && (
-                        <p className="text-gray-600 text-base md:text-lg leading-relaxed mb-5">
+                        <p style={{
+                          fontSize: 'clamp(16px, 4vw, 20px)',
+                          color: '#4b5563',
+                          lineHeight: 1.6,
+                          marginBottom: '20px'
+                        }}>
                           {eventoDestaque.descricao}
                         </p>
                       )}
-                      <div className="flex flex-wrap items-center gap-3 mb-5">
-                        <span className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-900 rounded-full text-base md:text-lg font-bold shadow-sm">
-                          <Clock className="h-4 w-4 md:h-5 md:w-5" />
+                      <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
+                        <span
+                          style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '8px',
+                            padding: 'clamp(10px, 2.5vw, 14px) clamp(16px, 4vw, 24px)',
+                            background: '#f3f4f6',
+                            color: '#111827',
+                            borderRadius: '9999px',
+                            fontSize: 'clamp(16px, 4vw, 22px)',
+                            fontWeight: 800,
+                            boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
+                          }}
+                        >
+                          <Clock className="h-5 w-5 md:h-6 md:w-6" style={{ flexShrink: 0 }} />
                           {format(new Date(eventoDestaque.data_inicio), 'EEEE, dd/MM', { locale: ptBR })}
                         </span>
                         {eventoDestaque.data_fim && (
-                          <span className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-900 rounded-full text-base md:text-lg font-bold shadow-sm">
+                          <span
+                            style={{
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: '8px',
+                              padding: 'clamp(10px, 2.5vw, 14px) clamp(16px, 4vw, 24px)',
+                              background: '#f3f4f6',
+                              color: '#111827',
+                              borderRadius: '9999px',
+                              fontSize: 'clamp(16px, 4vw, 22px)',
+                              fontWeight: 800,
+                              boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
+                            }}
+                          >
                             Até {format(new Date(eventoDestaque.data_fim), 'dd/MM', { locale: ptBR })}
                           </span>
                         )}
-                        <span className="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-full text-base md:text-lg font-bold shadow-lg">
-                          <Music className="h-4 w-4 md:h-5 md:w-5" />
+                        <span
+                          style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '8px',
+                            padding: 'clamp(10px, 2.5vw, 14px) clamp(16px, 4vw, 24px)',
+                            background: '#0284c7',
+                            color: 'white',
+                            borderRadius: '9999px',
+                            fontSize: 'clamp(16px, 4vw, 22px)',
+                            fontWeight: 800,
+                            boxShadow: '0 4px 16px rgba(2,132,199,0.4)'
+                          }}
+                        >
+                          <Music className="h-5 w-5 md:h-6 md:w-6" style={{ flexShrink: 0 }} />
                           Ao Vivo
                         </span>
                       </div>
