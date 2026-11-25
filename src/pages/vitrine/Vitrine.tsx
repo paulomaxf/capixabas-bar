@@ -545,53 +545,55 @@ export default function Vitrine() {
                     </span>
                   </div>
 
-                  {/* Artist name - bottom left */}
+                  {/* Artist name - bottom left - HUGE, BOLD, HIGH CONTRAST */}
                   {eventoDestaque.artista && (
-                    <div className="absolute bottom-20 left-4 right-4 z-10">
-                      <p className="text-white/90 text-xs font-medium mb-1 flex items-center gap-1 drop-shadow-lg">
-                        <Music className="h-3 w-3" /> Atração:
+                    <div className="absolute bottom-24 left-4 right-4 md:bottom-28 lg:bottom-32 z-10">
+                      <p className="text-white/90 text-sm md:text-base lg:text-lg font-semibold mb-2 flex items-center gap-2 drop-shadow-xl">
+                        <Music className="h-4 w-4 md:h-5 md:w-5" /> Atração:
                       </p>
-                      <h3 className="text-white text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold drop-shadow-xl tracking-tight">
+                      <h3 className="text-white text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-black drop-shadow-[0_4px_24px_rgba(0,0,0,0.9)] tracking-tight leading-none">
                         {eventoDestaque.artista}
                       </h3>
                     </div>
                   )}
 
-                  {/* Date - bottom right */}
-                  <div className="absolute bottom-4 right-4 z-10">
-                    <div className="bg-black/60 backdrop-blur-sm px-4 py-2 rounded-lg text-white border border-white/10 shadow-lg">
-                      <p className="text-xs font-medium drop-shadow-sm">
+                  {/* Date - bottom right - HUGE, BOLD, HIGH CONTRAST */}
+                  <div className="absolute bottom-4 right-4 md:bottom-6 lg:bottom-8 z-10">
+                    <div className="bg-black/80 backdrop-blur-md px-6 py-4 md:px-8 md:py-5 rounded-xl text-white border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
+                      <p className="text-base md:text-lg lg:text-xl font-bold drop-shadow-lg tracking-wide">
                         {format(new Date(eventoDestaque.data_inicio), 'EEEE, dd/MM', { locale: ptBR })}
                       </p>
-                      <p className="text-xs opacity-85">A partir das 20h</p>
+                      <p className="text-base md:text-lg lg:text-xl font-semibold opacity-95 drop-shadow-lg mt-1 tracking-wide">
+                        A partir das 20h
+                      </p>
                     </div>
                   </div>
                 </div>
 
-                <div className="p-3 md:p-4 lg:p-6">
-                  <div className="space-y-4 md:grid md:grid-cols-2 gap-4 lg:gap-6 items-center">
+                <div className="p-4 md:p-6 lg:p-8">
+                  <div className="space-y-5 md:grid md:grid-cols-2 gap-5 lg:gap-8 items-center">
                     <div>
-                      <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-3 flex items-center gap-2">
-                        <Music className="h-5 w-5 text-primary-600 shrink-0" />
+                      <h2 className="text-2xl md:text-3xl lg:text-4xl font-black text-gray-900 mb-4 flex items-center gap-3">
+                        <Music className="h-6 w-6 md:h-7 md:w-7 text-primary-600 shrink-0" />
                         Evento em Destaque
                       </h2>
                       {eventoDestaque.descricao && (
-                        <p className="text-gray-600 text-sm md:text-base leading-relaxed mb-4">
+                        <p className="text-gray-600 text-base md:text-lg leading-relaxed mb-5">
                           {eventoDestaque.descricao}
                         </p>
                       )}
-                      <div className="flex flex-wrap items-center gap-2 mb-4">
-                        <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">
-                          <Clock className="h-3 w-3" />
+                      <div className="flex flex-wrap items-center gap-3 mb-5">
+                        <span className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-900 rounded-full text-base md:text-lg font-bold shadow-sm">
+                          <Clock className="h-4 w-4 md:h-5 md:w-5" />
                           {format(new Date(eventoDestaque.data_inicio), 'EEEE, dd/MM', { locale: ptBR })}
                         </span>
                         {eventoDestaque.data_fim && (
-                          <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">
+                          <span className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-900 rounded-full text-base md:text-lg font-bold shadow-sm">
                             Até {format(new Date(eventoDestaque.data_fim), 'dd/MM', { locale: ptBR })}
                           </span>
                         )}
-                        <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-primary-100 text-primary-700 rounded-full text-sm font-medium">
-                          <Music className="h-3 w-3" />
+                        <span className="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-full text-base md:text-lg font-bold shadow-lg">
+                          <Music className="h-4 w-4 md:h-5 md:w-5" />
                           Ao Vivo
                         </span>
                       </div>
